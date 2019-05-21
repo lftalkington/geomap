@@ -1,14 +1,12 @@
 // Perform API call to USGS API to get earthquake data
-d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson", function(earthquakeData) {
+d3.json("https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson", function(earthquakeData) {
   createFeatures(earthquakeData.features);
 });
 
-// Function to scale the Magnitude 
 function markerSize(magnitude) {
   return magnitude * 30000;
 };
 
-// Function to assign color depends on the Magnitude
 function getColor(m) {
 
   var colors = ['lightgreen','yellowgreen','gold','orange','lightsalmon','tomato'];
@@ -24,7 +22,6 @@ function getColor(m) {
 function createFeatures(earthquakeData) {
 
   var earthquakes = L.geoJSON(earthquakeData,{
-    // Give each feature a popup describing with information pertinent to it
     onEachFeature: function(feature, layer){
       layer.bindPopup("<h3 > Magnitude: "+ feature.properties.mag + 
       "</h3><h3>Location: " + feature.properties.place +
